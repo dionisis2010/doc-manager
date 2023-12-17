@@ -2,7 +2,8 @@ package org.example.gui.utils;
 
 import java.awt.*;
 
-public class SimpleLayout implements LayoutManager {
+public class CustomLayout implements LayoutManager {
+
     @Override
     public void addLayoutComponent(String name, Component comp) {
 

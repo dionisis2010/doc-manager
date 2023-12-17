@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -12,7 +13,9 @@ import java.util.List;
 public class ArchState implements StateElement{
 
     @Builder.Default
-    List<ArchLabel> blocks = List.of();
+    UUID id = UUID.randomUUID();
+    @Builder.Default
+    List<ArchLabel> labels = List.of();
 
 
     public static ArchState empty() {
@@ -22,9 +25,9 @@ public class ArchState implements StateElement{
 
     public static ArchState def() {
         return ArchState.builder()
-                .blocks(List.of(
-                        new ArchLabel("first"),
-                        new ArchLabel("second")
+                .labels(List.of(
+                        ArchLabel.builder().value("first").build(),
+                        ArchLabel.builder().value("second").build()
                 ))
                 .build();
     }

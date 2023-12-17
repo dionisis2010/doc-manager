@@ -1,58 +1,57 @@
 package org.example.gui;
 
-import org.example.gui.utils.Screen;
-import org.example.gui.utils.SimpleLayout;
 import org.example.domian.ArchState;
+import org.example.gui.utils.Screen;
+import org.example.gui.utils.StyleCustomizer;
 import org.example.utils.JsonMapper;
 
 import javax.swing.*;
 import java.awt.*;
 
 //@RequiredArgsConstructor
-public class ClientApplication {
+public class ClientApplication extends JFrame {
 
-    private final JFrame mainFrame;
-    private final Screen secondScreen;
-    private final WorkSpase workSpase;
     private final JsonMapper jsonMapper = new JsonMapper();
     private final ArchState state = ArchState.def();
 
 
     public ClientApplication(Screen secondScreen) {
-        mainFrame = new JFrame(secondScreen.getConfiguration());
-        this.secondScreen = secondScreen;
-        mainFrame.setSize(1500, 1100);
-        mainFrame.setLocation(mainFrame.getX() + 100, mainFrame.getY() + 100);
-        mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        JPanel panel = new JPanel();
+        super(secondScreen.getConfiguration());
+        setSize(1500, 1100);
+        setLocation(getX() + 100, getY() + 100);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        JPanel panel = new JPanel(new GridLayout());
         panel.setBackground(Color.DARK_GRAY);
-        mainFrame.getContentPane().add(panel);
-        panel.setLayout(new SimpleLayout());
+        getContentPane().add(panel);
 
-        WorkSpase workSpase = new WorkSpase();
-        workSpase.setSize(1000, 1000);
-        workSpase.setLocation(10, 10);
-        workSpase.setBackground(Color.WHITE);
-        workSpase.setLayout(new SimpleLayout());
-        panel.add(workSpase);
-        this.workSpase = workSpase;
+        VisualWorkSpase visualWorkSpase = new VisualWorkSpase(new Dimension(1000, 1000));
 
-        JTextArea textField = new JTextArea();
-        textField.setSize(500, 900);
-        textField.setLocation(workSpase.getSize().getSize().width + 50, 50);
-        textField.setText(jsonMapper.toJson(state));
-        panel.add(textField);
+        JPanel confPanel = new JPanel();
+        StyleCustomizer.setBorder(confPanel);
+        confPanel.setLayout(new BoxLayout(confPanel, BoxLayout.Y_AXIS));
+
+        TextWorkSpace textWorkSpace = new TextWorkSpace(new Dimension(500, 900));
+        textWorkSpace.setText(jsonMapper.toJson(state));
 
         JButton refreshButton = new JButton("обновить");
-        refreshButton.setSize(150, 30);
-        refreshButton.setLocation(workSpase.getSize().getSize().width + 50, 10);
+        refreshButton.setPreferredSize(new Dimension(150, 30));
         refreshButton.addActionListener(e -> {
-            workSpase.render(jsonMapper.readState(textField.getText()));
+            visualWorkSpase.render(jsonMapper.readState(textWorkSpace.getText()));
         });
-        panel.add(refreshButton);
+
+        WorkSpaceLayoutSelector workSpaceLayoutSelector = new WorkSpaceLayoutSelector(visualWorkSpase, new Dimension(150, 200));
+
+        panel.add(visualWorkSpase);
+        panel.add(confPanel);
+
+        confPanel.add(workSpaceLayoutSelector);
+        confPanel.add(refreshButton);
+        confPanel.add(textWorkSpace);
+
     }
 
     public void run() {
-        mainFrame.setVisible(true);
+        setVisible(true);
     }
 }

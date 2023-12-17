@@ -1,21 +1,29 @@
 package org.example.model.label;
 
+import lombok.Getter;
 import org.example.domian.ArchLabel;
-import org.example.domian.ArchState;
+import org.example.gui.utils.MouseMoveAdapter;
+import org.example.gui.utils.StyleCustomizer;
+import org.example.model.ModelView;
 
 import javax.swing.*;
 
 
-public class ArchLabelWorkSpaceView extends JLabel
-        implements ModelView<ArchLabel, JLabel, ArchState,> {
+@Getter
+public class ArchLabelWorkSpaceView extends JLabel implements ModelView<ArchLabel, JLabel> {
 
-    @Override
-    public ArchLabel getState() {
-        return null;
+    private final ArchLabel state;
+
+    public ArchLabelWorkSpaceView(ArchLabel state) {
+        this.state = state;
+        setName(state.getId().toString());
+        StyleCustomizer.setBorder(this);
+        setText(state.getValue());
+        addMouseListener(new MouseMoveAdapter(this));
     }
 
     @Override
-    public void update(ArchLabel newState) {
-
+    public JLabel getView() {
+        return this;
     }
 }
