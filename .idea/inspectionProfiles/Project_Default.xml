@@ -1,0 +1,24 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="AutoCloseableResource" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="METHOD_MATCHER_CONFIG" value="java.util.Formatter,format,java.io.Writer,append,com.google.common.base.Preconditions,checkNotNull,org.hibernate.Session,close,java.io.PrintWriter,printf,java.io.PrintStream,printf,org.apache.http.impl.client.HttpClientBuilder,build" />
+    </inspection_tool>
+    <inspection_tool class="ImplicitlyExposedWebServiceMethods" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="SSBasedInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <searchConfiguration name="Required paremtrizing for TypeReference" uuid="f7596b93-0e73-3b44-956d-08230cd1c771" description="указание параметров внутри треугольных скобок обязательно, на JDK до версии 11.04 происходит ошибка компиляции" problemDescriptor="указание параметров внутри треугольных скобок обязательно, на JDK до версии 11.04 происходит ошибка компиляции" text="$varType$&lt;$parametizing$&gt; $varName$ = $instance$.$methodName$($param1$, new $typeReference$&lt;&gt;() {}, $param2$);" recursive="true" caseInsensitive="true" type="JAVA" pattern_context="default">
+        <constraint name="__context__" within="" contains="" />
+        <constraint name="varType" within="" contains="" />
+        <constraint name="varName" within="" contains="" />
+        <constraint name="instance" within="" contains="" />
+        <constraint name="methodName" within="" contains="" />
+        <constraint name="parametizing" within="" contains="" />
+        <constraint name="param2" minCount="0" maxCount="2147483647" within="" contains="" />
+        <constraint name="param1" minCount="0" maxCount="2147483647" within="" contains="" />
+        <constraint name="typeReference" target="true" within="" contains="" />
+      </searchConfiguration>
+    </inspection_tool>
+    <inspection_tool class="WebpackConfigHighlighting" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="f7596b93-0e73-3b44-956d-08230cd1c771" enabled="true" level="ERROR" enabled_by_default="true" />
+  </profile>
+</component>
