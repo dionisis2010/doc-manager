@@ -3,7 +3,6 @@ package org.example.model;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.swing.*;
 import java.awt.*;
 
 @Data
@@ -13,7 +12,7 @@ public class ViewSettings {
     private Point customLocation;
     private Dimension customSize;
 
-    public static ViewSettings of(JComponent component){
+    public static ViewSettings of(Component component){
         return ViewSettings.builder()
                 .customLocation(component.getLocation())
                 .customSize(component.getSize())

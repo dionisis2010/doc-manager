@@ -4,9 +4,12 @@ import org.example.domian.ArchState;
 import org.example.gui.utils.Screen;
 import org.example.gui.utils.StyleCustomizer;
 import org.example.model.Model;
+import org.example.model.ViewSettings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.UUID;
 
 public class ClientApplication extends JFrame {
 
@@ -45,10 +48,19 @@ public class ClientApplication extends JFrame {
         refreshButton.setPreferredSize(new Dimension(150, 30));
         refreshButton.addActionListener(e -> model.update());
 
+        JButton saveCustomSettingsButton = new JButton("сохранить");
+        saveCustomSettingsButton.setPreferredSize(new Dimension(150, 30));
+        saveCustomSettingsButton.addActionListener(e -> {
+            Arrays.stream(visualWorkSpase.getComponents())
+                            .forEach(component -> model.upsert(UUID.fromString(component.getName()), ViewSettings.of(component)));
+            workSpaceLayoutSelector.setActiveLayoutType(LayoutType.CUSTOM);
+        });
+
         panel.add(visualWorkSpase);
         panel.add(confPanel);
 
         confPanel.add(workSpaceLayoutSelector);
+        confPanel.add(saveCustomSettingsButton);
         confPanel.add(refreshButton);
         confPanel.add(textWorkSpace);
 

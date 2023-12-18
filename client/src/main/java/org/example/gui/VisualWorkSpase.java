@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.domian.StateElement;
 import org.example.model.Model;
 import org.example.model.ViewFactory;
-import org.example.model.ViewSettings;
 
 import javax.swing.*;
 import java.util.Map;
@@ -29,6 +28,5 @@ public class VisualWorkSpase extends JPanel implements WorkSpace {
         components.values().forEach(this::add);
         revalidate();
         repaint();
-        components.forEach((uuid, component) -> model.upsert(uuid, ViewSettings.of(component)));
     }
 }

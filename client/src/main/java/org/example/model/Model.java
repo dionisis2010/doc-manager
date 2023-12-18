@@ -3,6 +3,7 @@ package org.example.model;
 import lombok.Getter;
 import org.example.domian.StateElement;
 import org.example.gui.LayoutType;
+import org.example.gui.VisualWorkSpase;
 import org.example.gui.WorkSpace;
 
 import java.util.ArrayList;
@@ -23,7 +24,16 @@ public class Model {
 
     public synchronized void setActiveLayoutType(LayoutType layoutType) {
         this.activeLayoutType = layoutType;
+        getVisualWorkSpace().setLayout(layoutType.getLayout().get());
         update();
+    }
+
+    private VisualWorkSpase getVisualWorkSpace() {
+        return workSpaces.stream()
+                .filter(workSpace -> workSpace instanceof VisualWorkSpase)
+                .map(VisualWorkSpase.class::cast)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException());
     }
 
     public void addWorkSpace(WorkSpace workSpace) {
