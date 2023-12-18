@@ -5,11 +5,9 @@ import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.domian.ArchState;
 
-@RequiredArgsConstructor
 public class JsonMapper {
 
     private final ObjectMapper objectMapper;

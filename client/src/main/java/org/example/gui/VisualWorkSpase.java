@@ -1,33 +1,34 @@
 package org.example.gui;
 
-import org.example.domian.ArchState;
-import org.example.gui.utils.StyleCustomizer;
-import org.example.model.ArchStateWorkSpaceView;
+import lombok.RequiredArgsConstructor;
+import org.example.domian.StateElement;
+import org.example.model.Model;
+import org.example.model.ViewFactory;
+import org.example.model.ViewSettings;
 
 import javax.swing.*;
-import java.awt.*;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class VisualWorkSpase extends JPanel {
+@RequiredArgsConstructor
+public class VisualWorkSpase extends JPanel implements WorkSpace {
 
-    public VisualWorkSpase(Dimension dimension) {
-        setBackground(Color.WHITE);
-        StyleCustomizer.setBorder(this);
-    }
+    private final Model model;
+    private final ViewFactory viewFactory;
 
     public synchronized void clear() {
         removeAll();
         repaint();
     }
 
-    public synchronized void render(ArchState model) {
+    public synchronized void render() {
         clear();
-        ArchStateWorkSpaceView view = ArchStateWorkSpaceView.builder()
-                .labels(model.getLabels().stream()
-                        .map(label -> JComponentFactory.build(label))
-                        .collect(Collectors.toList()))
-                .build();
-        view.getLabels().forEach(label -> add(label.getView()));
+        Map<UUID, JComponent> components = model.getAllElements().stream()
+                .collect(Collectors.toMap(StateElement::getId, viewFactory::createAuto));
+        components.values().forEach(this::add);
         revalidate();
+        repaint();
+        components.forEach((uuid, component) -> model.upsert(uuid, ViewSettings.of(component)));
     }
 }

@@ -1,14 +1,20 @@
 package org.example.gui;
 
-import org.example.gui.utils.StyleCustomizer;
+import lombok.RequiredArgsConstructor;
+import org.example.model.Model;
+import org.example.utils.JsonMapper;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class TextWorkSpace extends JTextArea {
+@RequiredArgsConstructor
+public class TextWorkSpace extends JTextArea implements WorkSpace {
 
-    public TextWorkSpace(Dimension dimension) {
-        StyleCustomizer.setBorder(this);
-        setPreferredSize(dimension);
+
+    private final Model model;
+    private final JsonMapper jsonMapper;
+
+    @Override
+    public void render() {
+        setText(jsonMapper.toJson(model.getAllElements()));
     }
 }

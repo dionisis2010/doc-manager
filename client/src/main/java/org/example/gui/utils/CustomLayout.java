@@ -1,8 +1,15 @@
 package org.example.gui.utils;
 
+import lombok.RequiredArgsConstructor;
+import org.example.gui.VisualComponent;
+import org.example.model.Model;
+
 import java.awt.*;
 
+@RequiredArgsConstructor
 public class CustomLayout implements LayoutManager {
+
+    private final Model model;
 
     @Override
     public void addLayoutComponent(String name, Component comp) {
@@ -16,16 +23,15 @@ public class CustomLayout implements LayoutManager {
 
     @Override
     public Dimension preferredLayoutSize(Container parent) {
-        return null;
+        return parent.getSize();
     }
 
     @Override
     public Dimension minimumLayoutSize(Container parent) {
-        return null;
+        return parent.getSize();
     }
 
     @Override
-    public void layoutContainer(Container parent) {
-
+    public void layoutContainer(Container component) {
     }
 }

@@ -5,15 +5,12 @@ import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Builder
 @Jacksonized
-public class ArchState implements StateElement{
+public class ArchState {
 
-    @Builder.Default
-    UUID id = UUID.randomUUID();
     @Builder.Default
     List<ArchLabel> labels = List.of();
 
