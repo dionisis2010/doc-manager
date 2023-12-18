@@ -12,7 +12,7 @@ import java.util.List;
 public class ArchState {
 
     @Builder.Default
-    List<ArchLabel> labels = List.of();
+    List<ArchComponent> components = List.of();
 
 
     public static ArchState empty() {
@@ -21,10 +21,13 @@ public class ArchState {
     }
 
     public static ArchState def() {
+        ArchComponent first = ArchComponent.builder().name("first").build();
+        ArchComponent second = ArchComponent.builder().name("second").build();
+        first.bind(second, ArchRelationType.SIMPLE, ArchRelationDirection.NONE);
         return ArchState.builder()
-                .labels(List.of(
-                        ArchLabel.builder().value("first").build(),
-                        ArchLabel.builder().value("second").build()
+                .components(List.of(
+                        first,
+                        second
                 ))
                 .build();
     }

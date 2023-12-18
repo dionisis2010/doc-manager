@@ -13,12 +13,6 @@ import java.util.UUID;
 
 public class ClientApplication extends JFrame {
 
-    private final Model model;
-    private final TextWorkSpace textWorkSpace;
-    private final VisualWorkSpase visualWorkSpase;
-    private final MenuWorkSpase menuWorkSpase;
-    private final WorkSpaceLayoutSelector workSpaceLayoutSelector;
-
     public ClientApplication(Screen secondScreen,
                              Model model,
                              VisualWorkSpase visualWorkSpase,
@@ -26,13 +20,8 @@ public class ClientApplication extends JFrame {
                              MenuWorkSpase menuWorkSpase,
                              WorkSpaceLayoutSelector workSpaceLayoutSelector) {
         super(secondScreen.getConfiguration());
-        this.model = model;
-        this.visualWorkSpase = visualWorkSpase;
-        this.textWorkSpace = textWorkSpace;
-        this.menuWorkSpase = menuWorkSpase;
-        this.workSpaceLayoutSelector = workSpaceLayoutSelector;
 
-        setSize(1500, 1100);
+        setSize(1000, 800);
         setLocation(getX() + 100, getY() + 100);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -44,15 +33,15 @@ public class ClientApplication extends JFrame {
         StyleCustomizer.setBorder(confPanel);
         confPanel.setLayout(new BoxLayout(confPanel, BoxLayout.Y_AXIS));
 
-        JButton refreshButton = new JButton("обновить");
-        refreshButton.setPreferredSize(new Dimension(150, 30));
-        refreshButton.addActionListener(e -> model.update());
+        JButton resetButton = new JButton("сбросить");
+        resetButton.setPreferredSize(new Dimension(150, 30));
+        resetButton.addActionListener(e -> model.update());
 
         JButton saveCustomSettingsButton = new JButton("сохранить");
         saveCustomSettingsButton.setPreferredSize(new Dimension(150, 30));
         saveCustomSettingsButton.addActionListener(e -> {
             Arrays.stream(visualWorkSpase.getComponents())
-                            .forEach(component -> model.upsert(UUID.fromString(component.getName()), ViewSettings.of(component)));
+                    .forEach(component -> model.upsert(UUID.fromString(component.getName()), ViewSettings.of(component)));
             workSpaceLayoutSelector.setActiveLayoutType(LayoutType.CUSTOM);
         });
 
@@ -61,7 +50,7 @@ public class ClientApplication extends JFrame {
 
         confPanel.add(workSpaceLayoutSelector);
         confPanel.add(saveCustomSettingsButton);
-        confPanel.add(refreshButton);
+        confPanel.add(resetButton);
         confPanel.add(textWorkSpace);
 
         model.addWorkSpace(textWorkSpace);
@@ -69,7 +58,7 @@ public class ClientApplication extends JFrame {
         model.addWorkSpace(menuWorkSpase);
 
 
-        model.update(ArchState.def().getLabels());
+        model.update(ArchState.def().getComponents());
     }
 
     public void run() {

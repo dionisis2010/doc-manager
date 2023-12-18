@@ -22,12 +22,12 @@ public class SwingClientLauncher {
         Context.initJComponent(WorkSpaceLayoutSelector.class, 150, 200);
         Context.init(MouseAdapterFactory.class);
         Context.init(ViewFactory.class);
-        Context.initJComponent(VisualWorkSpase.class, 1000, 1000);
-        Context.initJComponent(TextWorkSpace.class, 500, 900);
-        Context.initJComponent(MenuWorkSpase.class, 500, 900);
+        Context.initJComponent(VisualWorkSpase.class, 500, 700);
+        Context.initJComponent(TextWorkSpace.class, 500, 300);
+        Context.initJComponent(MenuWorkSpase.class, 500, 500);
         GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Context.register("screen", new Screen(graphicsEnvironment.getScreenDevices()[1]));
+        Context.register("screen", new Screen(graphicsEnvironment.getScreenDevices()[0]));
 
-        Context.init(ClientApplication.class).run();
+        Context.initFrame(ClientApplication.class, 1000, 800).run();
     }
 }

@@ -1,6 +1,7 @@
 package org.example;
 
 import lombok.SneakyThrows;
+import org.example.gui.ClientApplication;
 import org.example.gui.utils.StyleCustomizer;
 
 import javax.swing.*;
@@ -54,6 +55,13 @@ public class Context {
         return bean;
     }
 
+    public static <T extends JFrame> T initFrame(Class<T> type, int x, int y) {
+        T bean = init(type.getName(), type);
+        bean.setName(type.getName());
+        bean.setPreferredSize(new Dimension(x, y));
+        return bean;
+    }
+
     public static void register(String key, Object value) {
         map.put(key, value);
     }
@@ -93,5 +101,4 @@ public class Context {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Не найден конструктор без параметров для типа " + type));
     }
-
 }

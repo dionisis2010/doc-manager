@@ -1,6 +1,7 @@
 package org.example.model;
 
 import lombok.Getter;
+import org.example.domian.ArchComponent;
 import org.example.domian.StateElement;
 import org.example.gui.LayoutType;
 import org.example.gui.VisualWorkSpase;
@@ -16,7 +17,7 @@ import java.util.UUID;
 
 public class Model {
 
-    private final Map<UUID, StateElement> state = new HashMap<>();
+    private final Map<UUID, ArchComponent> state = new HashMap<>();
     private final Map<UUID, ViewSettings> viewSettings = new HashMap<>();
     private final List<WorkSpace> workSpaces = new ArrayList<>();
     @Getter
@@ -48,9 +49,9 @@ public class Model {
         return Optional.ofNullable(viewSettings.get(id));
     }
 
-    public synchronized void update(List<? extends StateElement> stateElements) {
+    public synchronized void update(List<ArchComponent> archComponents) {
         state.clear();
-        stateElements.forEach(element -> state.put(element.getId(), element));
+        archComponents.forEach(element -> state.put(element.getId(), element));
         update();
     }
 
@@ -58,7 +59,7 @@ public class Model {
         workSpaces.forEach(WorkSpace::render);
     }
 
-    public Collection<StateElement> getAllElements() {
+    public Collection<ArchComponent> getAllElements() {
         return state.values();
     }
 

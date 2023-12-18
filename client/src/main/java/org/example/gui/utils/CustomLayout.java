@@ -1,7 +1,6 @@
 package org.example.gui.utils;
 
 import lombok.RequiredArgsConstructor;
-import org.example.gui.VisualComponent;
 import org.example.model.Model;
 
 import java.awt.*;

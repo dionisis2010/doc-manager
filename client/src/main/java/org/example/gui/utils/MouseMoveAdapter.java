@@ -1,6 +1,8 @@
 package org.example.gui.utils;
 
 import lombok.RequiredArgsConstructor;
+import org.example.Context;
+import org.example.gui.VisualWorkSpase;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,5 +26,6 @@ public class MouseMoveAdapter extends MouseAdapter {
         Point newPoint = new Point(component.getX() + releasedPoint.x - pressPosition.x,
                 component.getY() + releasedPoint.y - pressPosition.y);
         component.setLocation(newPoint);
+        Context.get(VisualWorkSpase.class).repaint();
     }
 }
